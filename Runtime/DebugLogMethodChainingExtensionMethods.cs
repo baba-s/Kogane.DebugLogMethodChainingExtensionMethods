@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Kogane
 {
@@ -16,15 +18,51 @@ namespace Kogane
             return self;
         }
 
+        public static T DebugLog<T>
+        (
+            this      T               self,
+            [NotNull] Func<T, object> selector
+        )
+        {
+            if ( selector == null ) throw new ArgumentNullException( nameof( selector ) );
+
+            OnLog?.Invoke( selector( self ) );
+            return self;
+        }
+
         public static T DebugLogWarning<T>( this T self )
         {
             OnLogWarning?.Invoke( self );
             return self;
         }
 
+        public static T DebugLogWarning<T>
+        (
+            this      T               self,
+            [NotNull] Func<T, object> selector
+        )
+        {
+            if ( selector == null ) throw new ArgumentNullException( nameof( selector ) );
+
+            OnLogWarning?.Invoke( selector( self ) );
+            return self;
+        }
+
         public static T DebugLogError<T>( this T self )
         {
             OnLogError?.Invoke( self );
+            return self;
+        }
+
+        public static T DebugLogError<T>
+        (
+            this      T               self,
+            [NotNull] Func<T, object> selector
+        )
+        {
+            if ( selector == null ) throw new ArgumentNullException( nameof( selector ) );
+
+            OnLogError?.Invoke( selector( self ) );
             return self;
         }
     }

@@ -42,4 +42,16 @@ public string GetDisplayName()
 }
 ```
 
-拡張メソッドを使えばローカル変数の定義が不要になります  
+拡張メソッドを使えばローカル変数の定義が不要になります
+
+```csharp
+public string GetDisplayName()
+{
+    var id   = 25;
+    var name = "ピカチュウ";
+
+    return $"{id}: {name}".DebugLog( x => $"表示名:{x}" );
+}
+```
+
+ログ出力のフォーマットを引数で指定することも可能です
